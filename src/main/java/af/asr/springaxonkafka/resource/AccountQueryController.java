@@ -26,7 +26,7 @@ import javax.annotation.PostConstruct;
 
 
 @RestController
-@ProcessingGroup("Accounts")
+//@ProcessingGroup("Accounts")
 @RequestMapping("/accounts")
 public class AccountQueryController {
 
@@ -41,9 +41,11 @@ public class AccountQueryController {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-//    @PostConstruct
+    @PostConstruct
     public void init()
     {
+
+
         commandGateway.sendAndWait(new AccountCreateCommand(UUID.randomUUID().toString(),"123123", "Ahmad"));
     }
 

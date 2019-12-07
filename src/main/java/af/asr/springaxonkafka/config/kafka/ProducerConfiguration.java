@@ -57,4 +57,5 @@ public class ProducerConfiguration {
     public NewTopic adviceTopic() {
         return new NewTopic(topicName, 3, (short) 1);
     }
+
 }

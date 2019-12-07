@@ -3,16 +3,11 @@ package af.asr.springaxonkafka.data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.springframework.data.annotation.Id;
 
 public class Account implements Serializable{
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -683252464592318120L;
 
-    @Id
     private String accountNo;
 
     private BigDecimal balance;
