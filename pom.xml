@@ -21,11 +21,11 @@
 	<dependencies>
 
 		<!-- https://mvnrepository.com/artifact/org.axonframework.extensions.kafka/axon-kafka-spring-boot-autoconfigure -->
-		<dependency>
-			<groupId>org.axonframework.extensions.kafka</groupId>
-			<artifactId>axon-kafka-spring-boot-autoconfigure</artifactId>
-			<version>4.0-RC2</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.axonframework.extensions.kafka</groupId>-->
+<!--			<artifactId>axon-kafka-spring-boot-autoconfigure</artifactId>-->
+<!--			<version>4.0-RC2</version>-->
+<!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/org.axonframework/axon-spring-boot-starter -->
 		<dependency>
@@ -35,11 +35,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.axonframework/axon-spring -->
-		<dependency>
-			<groupId>org.axonframework</groupId>
-			<artifactId>axon-spring</artifactId>
-			<version>4.2.1</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.axonframework</groupId>-->
+<!--			<artifactId>axon-spring</artifactId>-->
+<!--			<version>4.2.1</version>-->
+<!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/org.axonframework/axon-kafka -->
 		<dependency>
