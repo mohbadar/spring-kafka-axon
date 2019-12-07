@@ -1,6 +1,8 @@
 package af.asr.springaxonkafka.query.handler;
 
 import af.asr.springaxonkafka.data.AccountRepository;
+import af.asr.springaxonkafka.query.CountAccountSummariesQuery;
+import af.asr.springaxonkafka.query.FindAccountSummariesQuery;
 import af.asr.springaxonkafka.query.response.CountAccountSummariesResponse;
 import af.asr.springaxonkafka.query.response.FindAccountSummariesResponse;
 import org.axonframework.queryhandling.QueryHandler;
