@@ -3,6 +3,8 @@ package af.asr.springaxonkafka.config;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
+import org.axonframework.eventhandling.GlobalSequenceTrackingToken;
+import org.axonframework.eventhandling.TrackingToken;
 import org.axonframework.eventhandling.tokenstore.TokenStore;
 import org.axonframework.eventhandling.tokenstore.UnableToClaimTokenException;
 import org.slf4j.Logger;
@@ -37,13 +39,9 @@ public class KafkaTokenStore implements TokenStore {
         this.topicPartition = new TopicPartition(topic, consumerPartitions.get(0).partition());
     }
 
-    @Override
-    public void storeToken(org.axonframework.eventhandling.TrackingToken trackingToken, String s, int i) throws UnableToClaimTokenException {
-
-    }
 
     @Override
-    public org.axonframework.eventhandling.TrackingToken fetchToken(final String processorName, final int segment) throws UnableToClaimTokenException {
+    public TrackingToken fetchToken(final String processorName, final int segment) throws UnableToClaimTokenException {
 
         // segment is currently only 0 = root, but will be eventually used for partitioning/parallelization
 

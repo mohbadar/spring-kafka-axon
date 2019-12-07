@@ -14,7 +14,6 @@ import org.axonframework.eventhandling.GenericEventMessage;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.GenericDomainEventMessage;
 import org.axonframework.messaging.MetaData;
-import org.axonframework.messaging.kafka.message.KafkaMessage.KafkaPayload;
 import org.axonframework.serialization.LazyDeserializingObject;
 import org.axonframework.serialization.SerializedMessage;
 import org.axonframework.serialization.SerializedObject;
@@ -56,7 +55,7 @@ public class KafkaMessageConverter {
             headers.put("axon-message-aggregate-type", ((DomainEventMessage) eventMessage).getType());
         }
 
-        final KafkaPayload payload = new KafkaPayload(headers, serializedObject.getData());
+        final KafkaMessage.KafkaPayload payload = new KafkaMessage.KafkaPayload(headers, serializedObject.getData());
         final SerializedObject<byte[]> serializedKafkaPayload = serializer.serialize(payload, byte[].class);
 
         return new KafkaMessage(eventMessage.getTimestamp().toString(), serializedKafkaPayload.getData());
@@ -66,7 +65,7 @@ public class KafkaMessageConverter {
         try {
             final SimpleSerializedObject<byte[]> serializedKafkaMessage = new SimpleSerializedObject<>(payload, byte[].class, KafkaMessage.class.getName(),
                     null);
-            final KafkaPayload kafkaPayload = serializer.deserialize(serializedKafkaMessage);
+            final KafkaMessage.KafkaPayload kafkaPayload = serializer.deserialize(serializedKafkaMessage);
             log.trace("Converting kafka payload {}", kafkaPayload);
 
             final Map<String, Object> headers = kafkaPayload.getHeaders();

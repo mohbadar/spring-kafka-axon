@@ -1,4 +1,4 @@
-package af.asr.springaxonkafka.config.eventstore;
+package af.asr.springaxonkafka.config.eventsourcing;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import af.asr.springaxonkafka.config.KafkaConfigBuilder;
+import af.asr.springaxonkafka.config.tokenstore.KafkaStorageConverter;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
@@ -72,7 +73,7 @@ public class KafkaEventStoreEngine extends AbstractEventStorageEngine {
         if (events.isEmpty()) {
             return;
         }
-        events.stream().map(event -> KafkaStorageConverter.toRecord(event, serializer, eventStorage))
+        events.stream().map(event -> af.asr.springaxonkafka.config.tokenstore.KafkaStorageConverter.toRecord(event, serializer, eventStorage))
                 .forEach(record -> producer.send(record, (metadata, exception) -> {
                     if (metadata != null) {
                         log.info("Completed event append for {}", metadata.offset());
@@ -96,7 +97,7 @@ public class KafkaEventStoreEngine extends AbstractEventStorageEngine {
 
         return StreamSupport
                 .stream(consumer.poll(TIMEOUT).records(this.eventStorage).spliterator(), false)
-                .map(record -> KafkaStorageConverter.createDomainEventEntry(record, getSerializer()));
+                .map(record -> af.asr.springaxonkafka.config.tokenstore.KafkaStorageConverter.createDomainEventEntry(record, getSerializer()));
     }
 
     @Override

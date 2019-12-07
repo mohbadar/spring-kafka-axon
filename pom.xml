@@ -82,6 +82,14 @@
 <!--			<version>4.2.1</version>-->
 <!--		</dependency>-->
 
+		<!-- https://mvnrepository.com/artifact/org.axonframework/axon-core -->
+		<dependency>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-core</artifactId>
+			<version>4.0-M2</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>

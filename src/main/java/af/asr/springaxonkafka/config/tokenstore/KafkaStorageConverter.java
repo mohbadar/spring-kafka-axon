@@ -1,6 +1,4 @@
-package af.asr.springaxonkafka.config.eventstore;
-
-import static org.axonframework.serialization.MessageSerializer.serializePayload;
+package af.asr.springaxonkafka.config.tokenstore;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -8,18 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import af.asr.springaxonkafka.config.kafka.message.KafkaMessage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.axonframework.eventhandling.EventMessage;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.DomainEventData;
 import org.axonframework.eventsourcing.eventstore.GenericDomainEventEntry;
-import org.axonframework.eventsourcing.eventstore.GenericTrackedDomainEventEntry;
 import org.axonframework.eventsourcing.eventstore.GlobalSequenceTrackingToken;
 import org.axonframework.eventsourcing.eventstore.TrackedEventData;
 import org.axonframework.eventsourcing.eventstore.TrackingToken;
 import org.axonframework.messaging.MetaData;
-import org.axonframework.messaging.kafka.message.KafkaMessage.KafkaPayload;
 import org.axonframework.serialization.SerializedMetaData;
 import org.axonframework.serialization.SerializedObject;
 import org.axonframework.serialization.Serializer;
@@ -46,7 +43,7 @@ public class KafkaStorageConverter {
             headers.put("axon-message-aggregate-type", ((DomainEventMessage<?>) message).getType());
         }
 
-        final KafkaPayload payload = new KafkaPayload(headers, serializedObject.getData());
+        final KafkaMessage.KafkaPayload payload = new KafkaMessage.KafkaPayload(headers, serializedObject.getData());
         final SerializedObject<byte[]> serializedKafkaPayload = serializer.serialize(payload, byte[].class);
 
         return new ProducerRecord<>(eventStorage, serializedKafkaPayload.getData());
@@ -54,7 +51,7 @@ public class KafkaStorageConverter {
 
     private static GenericTrackedDomainEventEntry<byte[]> toEntry(final ConsumerRecord<String, byte[]> record, final Serializer serializer) {
         final SimpleSerializedObject<byte[]> serializedKafkaMessage = new SimpleSerializedObject<>(record.value(), byte[].class, byte[].class.getName(), null);
-        final KafkaPayload kafkaPayload = serializer.deserialize(serializedKafkaMessage);
+        final KafkaMessage.KafkaPayload kafkaPayload = serializer.deserialize(serializedKafkaMessage);
         log.trace("Converting kafka payload {}", kafkaPayload);
 
         final Map<String, Object> headers = kafkaPayload.getHeaders();

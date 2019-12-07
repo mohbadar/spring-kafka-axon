@@ -1,4 +1,4 @@
-package af.asr.springaxonkafka.config.eventstore;
+package af.asr.springaxonkafka.config.eventsourcing;
 
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.AbstractDomainEventEntry;
