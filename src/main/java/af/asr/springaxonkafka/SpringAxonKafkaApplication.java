@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.kafka.annotation.EnableKafka;
 
-@SpringBootApplication(exclude = KafkaAutoConfiguration.class)
+@SpringBootApplication()
 @EnableMongoRepositories()
 @EnableKafka
 public class SpringAxonKafkaApplication {
