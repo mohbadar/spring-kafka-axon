@@ -1,14 +1,14 @@
 ### Experimental Event Sourcing and CQRS with AxonFramework, Apache Kafka and Spring Framework
 
-## Storage
+#### Storage
 The Event Store is responsible for storing events. Since events are not to be modified (an event is a fact that something happened and facts cannot be modified), an Event Store should be optimized for appends. Event ordering plays a really important role in event-sourced systems - as many times as we are reconstructing our materialized state, we want to arrive at the same result. Axon Server is the default choice in Axon and the best way to start. It is highly optimized for storing/retrieving events. If you really want, alternatively, you might consider an RDBMS or a NoSQL database. Axon has out-of-the-box implementations that support JPA, JDBC and Mongo.
 
-## Event Replaying
+#### Event Replaying
 In order to have materialized state reconstructed we need to trigger an event replay. That means that all events will be handed over to event handlers which will process them and build the current state of an application* so we can apply our business logic. This gives us a powerful mechanism to diagnose (debug) any problems that happened in the past, just replay events up to the point in time when the incident occurred and assess the current state. If we encounter a problem with application logic, we could fix it and replay events.
 
 We should be cautious about event replays. Think of the case in which event handler contacts some external system (sends a bill to be paid). Certainly, we don’t want to replay this event. Gateways to other systems can be disabled in case of event replays in order to avoid this kind of problems. Axon Framework provides more granular control to event handlers in terms which events get replayed and which don’t. Also, it is possible to monitor the progress of the replay procedure.
 
-## Event Sourcing and CQRS
+#### Event Sourcing and CQRS
 Event Sourcing is a natural fit with CQRS. Typically, the command model in a CQRS based architecture is not stored, other than by its sequence of events. The query model is continuously updated to contain a certain representation of the current state, based on these same events.
 
 Instead of reconstructing the entire command model state, which would be a lengthy process, we separate the model in aggregates; parts of the model that need to be strongly consistent. This separation in aggregates makes models easier to reason about, more adaptable to change, and more importantly, it makes applications more scalable.
